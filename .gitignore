@@ -2,7 +2,7 @@ node_modules/
 dist/
 dist-ssr/
 .env
-*.env.example
+.env.example
 *.local
 .DS_Store
 *.log
