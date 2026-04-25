@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import env from "../../config/env";
 import "./Pricing.css";
 
 const hostedTiers = [
@@ -67,7 +68,7 @@ function Pricing() {
           </p>
         </div>
         <a
-          href="https://github.com"
+          href={env.GITHUB_URL}
           target="_blank"
           rel="noreferrer"
           className="pricing__oss-cta"

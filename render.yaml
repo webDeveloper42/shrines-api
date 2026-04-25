@@ -1,5 +1,5 @@
 services:
-  # ── Backend API ────────────────────────────────────────────
+  # ── Backend API ────────────────────────────────────────────────────────────
   - type: web
     name: shrine-api
     runtime: node
@@ -8,20 +8,36 @@ services:
     startCommand: node server.js
     healthCheckPath: /api/shrines?limit=1
     envVars:
+      # Set automatically by Render — do not change
       - key: NODE_ENV
         value: production
+
+      # MongoDB Atlas connection string
+      # Format: mongodb+srv://<user>:<password>@<cluster>.mongodb.net/shrines
       - key: MONGODB_URI
-        sync: false          # set in Render dashboard — use MongoDB Atlas URI
+        sync: false
+
+      # Comma-separated list of allowed frontend origins
+      # Example: https://shrine-finder.onrender.com
+      - key: ALLOWED_ORIGINS
+        sync: false
+
+      # Stripe secret key — use sk_live_... in production
       - key: STRIPE_SECRET_KEY
         sync: false
+
+      # Stripe webhook signing secret (from Stripe Dashboard → Webhooks)
       - key: STRIPE_WEBHOOK_SECRET
         sync: false
+
+      # Stripe Price IDs — create Products in Stripe Dashboard and paste the price_ IDs
       - key: STRIPE_DEVELOPER_PRICE_ID
         sync: false
+
       - key: STRIPE_PRO_PRICE_ID
         sync: false
 
-  # ── Frontend Static Site ───────────────────────────────────
+  # ── Frontend Static Site ───────────────────────────────────────────────────
   - type: web
     name: shrine-finder
     runtime: static
@@ -29,8 +45,20 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
+      # URL of the shrine-api service above (no trailing slash)
+      # Example: https://shrine-api.onrender.com
       - key: VITE_API_BASE
-        sync: false          # set to your shrine-api Render URL, e.g. https://shrine-api.onrender.com
+        sync: false
+
+      # Full URL to your GitHub repository
+      # Example: https://github.com/yourname/shrines-api
+      - key: VITE_GITHUB_URL
+        sync: false
+
+      # Name shown in the footer logo
+      - key: VITE_APP_NAME
+        value: Shrine Database
+
     routes:
       - type: rewrite
         source: /*

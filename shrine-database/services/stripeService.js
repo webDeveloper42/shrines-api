@@ -1,13 +1,14 @@
 const TIERS = require("../config/tiers");
+const env = require("../config/environment");
 
 class StripeService {
   static getClient() {
-    if (!process.env.STRIPE_SECRET_KEY) {
-      const err = new Error("STRIPE_SECRET_KEY is not configured.");
+    if (!env.STRIPE_SECRET_KEY) {
+      const err = new Error("STRIPE_SECRET_KEY is not configured. Set it in your .env file.");
       err.statusCode = 503;
       throw err;
     }
-    return require("stripe")(process.env.STRIPE_SECRET_KEY);
+    return require("stripe")(env.STRIPE_SECRET_KEY);
   }
 
   static async createCheckoutSession({ email, tier, keyHash, successUrl, cancelUrl }) {
@@ -30,7 +31,9 @@ class StripeService {
 
   static constructWebhookEvent(payload, sig) {
     return StripeService.getClient().webhooks.constructEvent(
-      payload, sig, process.env.STRIPE_WEBHOOK_SECRET
+      payload,
+      sig,
+      env.STRIPE_WEBHOOK_SECRET
     );
   }
 }

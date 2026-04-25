@@ -1,21 +1,25 @@
 name: Bug Report
-description: Report a bug in the API or frontend
+description: Report a bug in the Shrine Database API or frontend
 labels: ["bug", "triage"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report a bug. For **security vulnerabilities**, please see [SECURITY.md](../../SECURITY.md) instead.
+        Use this form to report bugs in the API or shrine-finder frontend.
+        For **incorrect shrine data**, use the "Shrine Data" template instead.
+        For **security vulnerabilities**, see [SECURITY.md](../../SECURITY.md) — do not open a public issue.
 
   - type: dropdown
     id: area
     attributes:
-      label: Area
+      label: Where is the bug?
       options:
-        - Backend API
-        - Frontend (shrine-finder)
-        - Shrine data / database
-        - Documentation
+        - API — shrine endpoints (GET /api/shrines)
+        - API — authentication / API key registration
+        - API — payment / tier upgrade
+        - Frontend — shrine browser
+        - Frontend — developer portal
+        - Frontend — pricing or docs page
     validations:
       required: true
 
@@ -23,7 +27,7 @@ body:
     id: description
     attributes:
       label: What happened?
-      placeholder: Describe the bug clearly.
+      placeholder: Describe the bug. Include the full API response or error message if relevant.
     validations:
       required: true
 
@@ -32,21 +36,21 @@ body:
     attributes:
       label: Steps to reproduce
       placeholder: |
-        1. Call GET /api/shrines with...
-        2. See error...
+        1. Register a free API key at /developers
+        2. Call GET /api/shrines/:id with the key
+        3. Receive error...
     validations:
       required: true
 
   - type: textarea
     id: expected
     attributes:
-      label: Expected behavior
-      placeholder: What did you expect to happen?
+      label: What did you expect?
     validations:
       required: true
 
   - type: input
-    id: version
+    id: node_version
     attributes:
-      label: Node.js version
+      label: Node.js version (for API bugs)
       placeholder: e.g. 20.11.0

@@ -1,4 +1,5 @@
 require("dotenv").config();
+const env = require("./config/environment"); // validates required vars on startup
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
@@ -12,12 +13,6 @@ const authRoutes = require("./controllers/routes/authRoutes");
 const paymentRoutes = require("./controllers/routes/paymentRoutes");
 
 const app = express();
-const { PORT = 3000, ALLOWED_ORIGINS = "" } = process.env;
-
-// ── Allowed origins ─────────────────────────────────────────
-const allowedOrigins = ALLOWED_ORIGINS
-  ? ALLOWED_ORIGINS.split(",").map((o) => o.trim())
-  : ["http://localhost:5173", "http://localhost:5174"];
 
 // ── Security headers (helmet) ───────────────────────────────
 app.use(helmet());
@@ -26,7 +21,7 @@ app.use(helmet());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+      if (!origin || env.ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
       callback(new Error("Not allowed by CORS"));
     },
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -55,8 +50,8 @@ app.use(notFoundHandler);
 // ── Global error handler ─────────────────────────────────────
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Shrine Database API running on port ${PORT}`);
+app.listen(env.PORT, () => {
+  console.log(`Shrine Database API running on port ${env.PORT} [${env.NODE_ENV}]`);
 });
 
 module.exports = app;

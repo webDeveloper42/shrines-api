@@ -1,52 +1,51 @@
 # Security Policy
 
-## Supported Versions
+## Supported versions
 
-| Version | Supported |
-|---------|-----------|
-| Latest (`main`) | ✅ |
-| Older branches | ❌ |
+Only the latest `main` branch is actively maintained. Older branches do not receive security fixes.
 
-## Reporting a Vulnerability
+## Reporting a vulnerability
 
-**Please do not open a public GitHub issue for security vulnerabilities.**
+**Do not open a public GitHub issue for security vulnerabilities.**
 
-Report security issues by emailing **security@shrine-database.dev**. You should receive a response within **72 hours**. If you do not hear back, follow up to ensure your report was received.
+Email **security@shrine-database.dev** with:
 
-Please include:
+- What the vulnerability is and where it exists
+- Steps to reproduce or a proof of concept
+- The potential impact (what an attacker could do with it)
 
-- A clear description of the vulnerability
-- Steps to reproduce (proof-of-concept code if available)
-- The potential impact and attack scenario
-- Any suggested mitigations
+You will receive an acknowledgement within **72 hours**. If you don't hear back, follow up — your report may have been missed.
 
-## What to Expect
+## What we fix and when
 
-1. **Acknowledgement** within 72 hours
-2. **Triage** within 7 days — we confirm whether the issue is valid and its severity
-3. **Fix** within 30 days for critical/high severity issues
-4. **Disclosure** — coordinated public disclosure after a patch is released
-5. **Credit** — reporters are credited in the release notes unless they prefer anonymity
+| Severity | Target fix time |
+|---|---|
+| Critical (API key bypass, data exfiltration) | 48 hours |
+| High (auth bypass, tier manipulation, payment fraud) | 7 days |
+| Medium (rate limit bypass, info disclosure) | 30 days |
+| Low (hardening improvements) | Next release |
 
-## Scope
+After a fix is released we will publish a brief disclosure. Reporters are credited unless they prefer anonymity.
 
-**In scope:**
-- Authentication and API key bypass
-- Data injection (NoSQL, code injection)
-- Information disclosure (API keys, emails, internal errors)
-- Rate limiting bypass
-- Payment/tier manipulation
-- Dependency vulnerabilities with a known exploit
+## Scope — what's in
 
-**Out of scope:**
-- Theoretical vulnerabilities without a proof of concept
-- Attacks requiring physical access to infrastructure
-- Social engineering
-- Denial-of-service via legitimate API usage
-- Issues in services we do not control (MongoDB Atlas, Stripe, Render)
+- API key authentication bypass
+- Shrine data manipulation without authorization (unauthorized POST/PUT/DELETE)
+- NoSQL injection via shrine search or filter parameters
+- Payment tier bypass (accessing Pro endpoints on a Free key)
+- API key exposure (keys appearing in logs, error messages, or responses where they shouldn't)
+- Rate limiting bypass that enables abuse of the free tier
+- Dependency vulnerabilities with a working exploit path
 
-## Security Best Practices for API Users
+## Scope — what's out
 
-- Never commit your `X-API-Key` to a public repository
-- Rotate your key immediately if it may have been exposed — contact us to deactivate the old one
-- Use environment variables to store keys in your applications
+- Theoretical issues with no working exploit
+- Denial-of-service via legitimate high-volume API usage (covered by rate limiting, not a bug)
+- Issues in infrastructure we don't control: MongoDB Atlas, Stripe, Render.com
+- Social engineering attacks
+
+## Keeping your API key safe
+
+- Store your `X-API-Key` in environment variables — never in source code or commit it
+- If your key is exposed, email us immediately so we can deactivate it and issue a new one
+- We will never ask for your API key via email or GitHub

@@ -10,8 +10,9 @@ import Pricing from "../Pricing/Pricing";
 import ApiDocs from "../ApiDocs/ApiDocs";
 import DeveloperPortal from "../DeveloperPortal/DeveloperPortal";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import env from "../../config/env";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+const API_BASE = env.API_BASE;
 
 function App() {
   const [shrines, setShrines] = useState([]);

@@ -1,38 +1,50 @@
 name: Feature Request
-description: Suggest an idea or improvement
+description: Suggest an improvement that serves the shrine database mission
 labels: ["enhancement"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature requests are welcome if they directly improve the shrine dataset, the API, or the developer experience around shrine data.
+        Requests that would expand this project beyond Japanese shrine data will be closed.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: What area does this improve?
+      options:
+        - Shrine data — new fields (e.g. founding year, enshrined deity, shrine type)
+        - API — new shrine endpoint or filter
+        - API — developer experience (pagination, response format)
+        - Frontend — shrine browser
+        - Frontend — developer portal or docs
+    validations:
+      required: true
+
   - type: textarea
     id: problem
     attributes:
-      label: What problem does this solve?
-      placeholder: Is your feature request related to a problem? Describe it.
+      label: What shrine-related problem does this solve?
+      placeholder: |
+        e.g. "There's no way to filter shrines by their enshrined deity, which makes
+        it hard to build apps for users looking for shrines dedicated to a specific kami."
     validations:
       required: true
 
   - type: textarea
     id: solution
     attributes:
-      label: Proposed solution
-      placeholder: Describe what you'd like to happen.
-    validations:
-      required: true
-
-  - type: dropdown
-    id: area
-    attributes:
-      label: Area
-      options:
-        - Backend API (new endpoint, new field)
-        - Frontend (UI improvement)
-        - Shrine data (new data fields)
-        - Developer experience (docs, SDK)
-        - Infrastructure / deployment
+      label: What would you like to see?
+      placeholder: Describe the change clearly — new field, new endpoint, UI change, etc.
     validations:
       required: true
 
   - type: textarea
-    id: alternatives
+    id: out_of_scope_check
     attributes:
-      label: Alternatives considered
-      placeholder: Any other approaches you've thought about?
+      label: Confirm this is shrine-specific
+      placeholder: |
+        Briefly explain why this is specific to the shrine database and not a general
+        feature request that could apply to any data API.
+    validations:
+      required: true

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import env from "../../config/env";
 import "./Header.css";
 
 function Header({ counter }) {
@@ -42,7 +43,7 @@ function Header({ counter }) {
       <div className="header__announce">
         <span>
           Open source · MIT license ·{" "}
-          <a href="https://github.com" target="_blank" rel="noreferrer" className="header__announce-link">
+          <a href={env.GITHUB_URL} target="_blank" rel="noreferrer" className="header__announce-link">
             Star on GitHub ★
           </a>{" "}
           · <strong>{counter}</strong> shrines in the database

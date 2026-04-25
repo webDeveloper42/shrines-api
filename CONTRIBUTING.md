@@ -1,47 +1,37 @@
 # Contributing to Shrine Database
 
-Thank you for helping grow the world's most comprehensive Japanese shrine database. Contributions of all kinds are welcome.
+Shrine Database accepts contributions that directly improve the shrine dataset, the API, or the developer experience around shrine data. If your contribution doesn't serve that purpose, it is out of scope.
 
-## Ways to Contribute
+## What we accept
 
-| Type | How |
-|------|-----|
-| Add shrine data | Edit `shrine-database/shrines.json` and open a PR |
-| Fix a bug | Open an issue, then submit a PR |
-| Suggest a feature | Open a Feature Request issue |
-| Improve docs | Edit any `.md` file and open a PR |
-| Report a security issue | See [SECURITY.md](SECURITY.md) — **do not open a public issue** |
+| Contribution | Accepted |
+|---|---|
+| Add real Japanese shrine entries with verifiable data | ✅ |
+| Fix incorrect shrine names, addresses, or coordinates | ✅ |
+| Bug fixes in the API or frontend | ✅ |
+| Performance or security improvements | ✅ |
+| Improved API docs or developer guides | ✅ |
+| New shrine data fields (e.g., founding date, deity, type) | ✅ with discussion first |
+| Non-shrine locations (temples, castles, parks, etc.) | ❌ |
+| General Japan tourism features unrelated to shrines | ❌ |
+| Fabricated or unverifiable shrine data | ❌ |
+| Changes to the project's core purpose | ❌ |
 
-## Development Setup
+If you're unsure whether your contribution fits, open an issue before building it.
 
-```bash
-# Clone the repo
-git clone https://github.com/webDeveloper42/shrines-api.git
-cd shrines-api
+---
 
-# Backend
-cd shrine-database
-cp .env.example .env        # fill in your values
-npm install
-node seed.js                # seed the 312 shrine dataset
-npm start                   # runs on :3000
+## Adding shrine data
 
-# Frontend (separate terminal)
-cd ../shrine-finder
-cp .env.example .env        # set VITE_API_BASE=http://localhost:3000
-npm install
-npm run dev                 # runs on :5173
-```
+This is the most valuable contribution you can make. The dataset lives in `shrine-database/shrines.json`.
 
-## Adding Shrine Data
-
-The shrine dataset lives in `shrine-database/shrines.json`. Each entry follows this schema:
+### Schema
 
 ```json
 {
   "name": "Shrine Name in English",
   "location": "City - Prefecture, Japan",
-  "address": "Full address in English or romanized Japanese",
+  "address": "Full address in English or Hepburn romanization",
   "country": "Japan",
   "coordinates": {
     "latitude": 35.0000,
@@ -50,43 +40,71 @@ The shrine dataset lives in `shrine-database/shrines.json`. Each entry follows t
 }
 ```
 
-**Data quality requirements:**
-- `name` is required; all other fields are optional but encouraged
-- Coordinates should come from a reliable source (Google Maps, Wikipedia infobox)
-- Addresses should be in English or Hepburn romanization
-- Do not duplicate existing shrines (search the JSON before adding)
+### Data quality rules
 
-After editing `shrines.json`, re-seed with `node seed.js`.
+- **Name** — Use the most common English name. Include the Japanese name in a comment if helpful.
+- **Location** — Format as `City - Prefecture, Japan` (e.g., `Nikko - Tochigi, Japan`)
+- **Address** — Use the full postal address in English or Hepburn romanization. Get it from Google Maps or the shrine's official website.
+- **Coordinates** — Must come from a verifiable source: Google Maps pin, Wikipedia infobox, or the shrine's official site. Do not estimate.
+- **No duplicates** — Search `shrines.json` before adding. Duplicate names with different spellings still count as duplicates.
+- **Real shrines only** — Every entry must be a real, publicly accessible Shinto shrine (jinja) in Japan. Shinto-Buddhist combined sites are acceptable if the shrine component is primary.
 
-## Code Standards
+After adding entries, run `node seed.js` to load them into your local database and test via the API.
 
-- **Backend:** CommonJS modules, async/await, OOP (classes for services/repositories)
-- **Frontend:** Functional React components, BEM CSS naming
-- **Linting:** Run `npm run lint` in `shrine-finder/` before submitting
-- **No secrets:** Never commit `.env` files or API keys
+---
 
-## Pull Request Process
+## Development setup
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/your-feature`
-3. Make your changes and test locally
-4. Commit with a clear message: `git commit -m "feat: add Meiji Shrine to dataset"`
-5. Push and open a PR against `main`
-6. Fill in the PR template — PRs without a description will be asked to add one
+```bash
+git clone https://github.com/webDeveloper42/shrines-api.git
+cd shrines-api
 
-## Commit Message Convention
+# Backend
+cd shrine-database
+cp .env.example .env      # fill in all values
+npm install
+node seed.js              # load the shrine dataset
+npm start                 # API on :3000
 
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
+# Frontend (separate terminal)
+cd ../shrine-finder
+cp .env.example .env      # VITE_API_BASE=http://localhost:3000
+npm install
+npm run dev               # UI on :5173
+```
 
-| Prefix | When to use |
-|--------|-------------|
-| `feat:` | New shrine data, new feature |
-| `fix:` | Bug fix |
-| `docs:` | Documentation only |
-| `style:` | CSS / formatting only |
-| `refactor:` | Code restructure with no behavior change |
-| `security:` | Security improvement |
+---
 
-## Code of Conduct
+## Code standards
 
-This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating you agree to abide by its terms.
+**Backend:**
+- CommonJS modules (`require`/`module.exports`)
+- `async/await` throughout — no `.then()` chains in new code
+- OOP: data access in Repository classes, business logic in Service classes, thin controllers
+- All new routes must have input validation via `validationMiddleware.js`
+- All new auth routes must use `authLimiter`
+
+**Frontend:**
+- Functional React components only
+- BEM CSS naming — no element selectors (`.block h3`) inside BEM blocks; use explicit classes (`.block__title`)
+- All URLs and config values go through `src/config/env.js`, never hardcoded
+
+**Both:**
+- No `.env` files or API keys committed
+- Run `npm run lint` in `shrine-finder/` before opening a PR
+
+---
+
+## Pull request process
+
+1. Fork, then create a branch named for your change: `data/meiji-shrine`, `fix/coordinates-validation`, `feat/shrine-type-field`
+2. Make your changes and test locally
+3. Commit using [Conventional Commits](https://www.conventionalcommits.org/):
+   - `data: add Meiji Shrine to dataset`
+   - `fix: correct coordinates for Itsukushima Shrine`
+   - `feat: add shrine type field to model`
+   - `security: hash comparison timing fix`
+4. Open a PR against `main` and fill in the template fully
+5. A maintainer will review within a few days — be ready to update based on feedback
+
+PRs that add shrine data will be checked against at least one external source before merging.

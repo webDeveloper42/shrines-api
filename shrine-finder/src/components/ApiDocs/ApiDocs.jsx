@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import env from "../../config/env";
 import "./ApiDocs.css";
 
-const BASE = "https://api.shrine-database.dev";
+const BASE = env.API_BASE;
 
 function CodeBlock({ children }) {
   return <pre className="docs__code"><code>{children}</code></pre>;

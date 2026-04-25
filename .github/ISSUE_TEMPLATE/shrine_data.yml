@@ -1,0 +1,71 @@
+name: Shrine Data — Add or Correct
+description: Submit a new shrine entry or report incorrect shrine data
+labels: ["shrine-data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to add a new shrine or report a data error (wrong name, address, coordinates, etc.).
+        Only real, publicly accessible Shinto shrines (jinja) in Japan are accepted.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: What kind of data change is this?
+      options:
+        - Add a new shrine
+        - Fix incorrect name
+        - Fix incorrect address
+        - Fix incorrect coordinates
+        - Fix incorrect location (city/prefecture)
+        - Remove a duplicate entry
+    validations:
+      required: true
+
+  - type: input
+    id: shrine_name
+    attributes:
+      label: Shrine name (English)
+      placeholder: e.g. Meiji Shrine
+    validations:
+      required: true
+
+  - type: input
+    id: shrine_name_jp
+    attributes:
+      label: Shrine name (Japanese)
+      placeholder: e.g. 明治神宮
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      placeholder: "City - Prefecture, Japan (e.g. Shibuya - Tokyo, Japan)"
+    validations:
+      required: true
+
+  - type: input
+    id: address
+    attributes:
+      label: Full address
+      placeholder: e.g. 1-1 Yoyogikamizonocho, Shibuya City, Tokyo 151-8557, Japan
+
+  - type: input
+    id: coordinates
+    attributes:
+      label: Coordinates (lat, lng)
+      placeholder: e.g. 35.6763, 139.6993
+
+  - type: input
+    id: source
+    attributes:
+      label: Source for this data
+      placeholder: e.g. Google Maps link, Wikipedia article URL, official shrine website
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Any other notes
+      placeholder: Is this shrine notable for something specific? Any naming variations?

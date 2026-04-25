@@ -1,34 +1,39 @@
-## Summary
+## What does this PR do?
 
-<!-- What does this PR do? One or two sentences. -->
+<!-- One or two sentences. If it adds shrine data, name the shrines. If it fixes a bug, describe what was broken. -->
 
-## Type of change
+## Type
 
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Shrine data addition / correction
-- [ ] Refactor (no behavior change)
-- [ ] Documentation update
+- [ ] Shrine data — adding new shrines
+- [ ] Shrine data — correcting existing entries
+- [ ] Bug fix in the API
+- [ ] Bug fix in the frontend
 - [ ] Security improvement
+- [ ] Performance or code quality improvement
+- [ ] Documentation
 
-## Changes
+## Shrine data checklist (skip if not adding shrine data)
 
-<!-- List the key files changed and why. -->
+- [ ] Every entry is a real Shinto shrine (jinja) in Japan
+- [ ] Each shrine has a verifiable source (Google Maps, Wikipedia, official site)
+- [ ] No duplicates — I searched `shrines.json` before adding
+- [ ] Coordinates are from a pinned map source, not estimated
+- [ ] Addresses use English or Hepburn romanization
+- [ ] I ran `node seed.js` and tested the entries via the API locally
 
-## Testing
+## Code checklist (skip if only adding shrine data)
 
 - [ ] Tested locally (`npm start` / `npm run dev`)
-- [ ] API endpoints respond correctly
-- [ ] No new linting errors (`npm run lint` in shrine-finder)
-- [ ] Shrine data follows the schema in CONTRIBUTING.md (if applicable)
+- [ ] No new linting errors (`npm run lint` in shrine-finder/)
+- [ ] New routes have input validation (validationMiddleware)
+- [ ] No `.env` files or API keys committed
+- [ ] BEM naming used for any new CSS classes
+- [ ] Config values go through `src/config/env.js`, not hardcoded
 
-## Security checklist (if touching auth, models, or middleware)
+## Sources (for shrine data PRs)
 
-- [ ] No API keys or secrets are committed
-- [ ] No plaintext sensitive data stored in MongoDB
-- [ ] Input validation is in place for any new endpoints
-- [ ] Rate limiting applied to any new auth endpoints
+<!-- List the sources for coordinates and addresses — one per shrine is fine -->
 
-## Related issues
+## Related issue
 
 Closes #

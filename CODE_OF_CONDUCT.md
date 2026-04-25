@@ -1,39 +1,39 @@
-# Contributor Covenant Code of Conduct
+# Shrine Database — Community Standards
 
-## Our Pledge
+This project exists to build the most accurate and comprehensive database of Japanese shrines. Every contribution — code, data, or discussion — should serve that goal.
 
-We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, color, religion, or sexual identity and orientation.
+## What this community is about
 
-We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
+- Researching and documenting real Japanese shrines (jinja)
+- Keeping shrine data accurate, respectful, and culturally appropriate
+- Building tools that make shrine data useful to developers
+- Helping each other get things right
 
-## Our Standards
+## What belongs here
 
-**Positive behavior includes:**
-- Using welcoming and inclusive language
-- Being respectful of differing viewpoints and experiences
-- Gracefully accepting constructive criticism
-- Focusing on what is best for the community
-- Showing empathy towards other community members
+- Shrine entries with accurate names, locations, addresses, and coordinates
+- Bug reports and fixes for the API or frontend
+- Improvements that directly serve the shrine database mission
+- Respectful discussion about shrine data quality or coverage gaps
 
-**Unacceptable behavior includes:**
-- Sexualized language or imagery, and unwelcome sexual attention or advances
-- Trolling, insulting or derogatory comments, and personal or political attacks
-- Public or private harassment
-- Publishing others' private information without explicit permission
-- Other conduct which could reasonably be considered inappropriate in a professional setting
+## What does not belong here
 
-## Enforcement Responsibilities
+- Shrine entries that are fabricated, inaccurate, or cannot be verified
+- Data for non-shrine locations (temples, castles, parks, restaurants, etc.)
+- Feature requests that would turn this into a general Japan tourism API
+- Debate about Japanese religion, politics, or culture that isn't directly relevant to data accuracy
+- Disrespectful treatment of Japanese cultural or religious subjects
 
-Project maintainers are responsible for clarifying and enforcing our standards and will take appropriate and fair corrective action in response to any behavior they deem inappropriate, threatening, offensive, or harmful.
+## How we expect people to behave
 
-## Scope
+Be direct and accurate. If a shrine entry is wrong, say so clearly with a source. If you disagree with an approach, explain why with specifics. Vague criticism or personal comments about contributors are not useful here.
 
-This Code of Conduct applies within all community spaces and also when an individual is officially representing the community in public spaces.
+We do not tolerate harassment, personal attacks, or bad-faith behavior of any kind. Anyone acting this way will be removed from the project.
 
-## Enforcement
+## Reporting problems
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project maintainers at **conduct@shrine-database.dev**. All complaints will be reviewed and investigated promptly and fairly.
+To report a conduct issue, email **conduct@shrine-database.dev**. Include what happened, when, and any relevant links. Reports are handled privately.
 
-## Attribution
+## The bottom line
 
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1.
+If your contribution makes the shrine database more accurate, more complete, or more useful to developers — it belongs here. If it doesn't serve that purpose, it doesn't.
