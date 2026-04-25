@@ -8,10 +8,20 @@ const hostedTiers = [
     name: "Free",
     price: "$0",
     period: "/ month",
-    tagline: "Try the hosted API at no cost.",
-    dailyLimit: "100 requests / day",
-    methods: ["GET /api/shrines (list only)"],
-    features: ["Free API key via registration", "Paginated shrine list", "JSON responses", "No credit card required"],
+    tagline: "Build and explore with no commitment.",
+    dailyLimit: "500 requests / day",
+    methods: [
+      "GET /api/shrines",
+      "GET /api/shrines/:id",
+      "GET /api/shrines?search=",
+      "GET /api/shrines?country=",
+    ],
+    features: [
+      "No credit card required",
+      "Full read access — list, search, filter, individual lookup",
+      "Paginated JSON responses",
+      "Enough for side projects and prototypes",
+    ],
     cta: "Get Free Key",
     ctaLink: "/developers",
     highlighted: false,
@@ -21,10 +31,19 @@ const hostedTiers = [
     name: "Developer",
     price: "$9",
     period: "/ month",
-    tagline: "For apps and side projects.",
-    dailyLimit: "10,000 requests / day",
-    methods: ["GET /api/shrines", "GET /api/shrines/:id"],
-    features: ["Everything in Free", "Individual shrine lookup", "Search & filter by name/country", "Pagination support"],
+    tagline: "Production-grade limits for real apps.",
+    dailyLimit: "20,000 requests / day",
+    methods: [
+      "GET /api/shrines",
+      "GET /api/shrines/:id",
+      "GET /api/shrines?search=",
+      "GET /api/shrines?country=",
+    ],
+    features: [
+      "Everything in Free",
+      "40× higher daily limit — handles real production traffic",
+      "Supports the project's data curation and hosting",
+    ],
     cta: "Start Developer Plan",
     ctaLink: "/developers",
     highlighted: true,
@@ -34,10 +53,21 @@ const hostedTiers = [
     name: "Pro",
     price: "$29",
     period: "/ month",
-    tagline: "Full access for serious builders.",
+    tagline: "Unlimited reads and full write access.",
     dailyLimit: "Unlimited requests",
-    methods: ["GET /api/shrines", "GET /api/shrines/:id", "POST /api/shrines", "PUT /api/shrines/:id", "DELETE /api/shrines/:id"],
-    features: ["Everything in Developer", "Full CRUD operations", "Submit & manage shrines", "Priority support"],
+    methods: [
+      "GET /api/shrines",
+      "GET /api/shrines/:id",
+      "POST /api/shrines",
+      "PUT /api/shrines/:id",
+      "DELETE /api/shrines/:id",
+    ],
+    features: [
+      "Everything in Developer",
+      "Unlimited daily requests",
+      "Full CRUD — submit, update, and remove shrine entries",
+      "For data curators and high-traffic production apps",
+    ],
     cta: "Start Pro Plan",
     ctaLink: "/developers",
     highlighted: false,
@@ -125,14 +155,16 @@ function Pricing() {
       <div className="pricing__faq">
         <h2 className="pricing__faq-title">FAQ</h2>
         <dl className="pricing__faq-list">
-          <dt>Can I switch tiers?</dt>
-          <dd>Yes — upgrade or downgrade anytime. Downgrades take effect at the next billing cycle.</dd>
-          <dt>What happens if I hit my daily limit?</dt>
-          <dd>Requests return a 429 error until the counter resets at midnight UTC. Upgrade to increase or remove your limit.</dd>
-          <dt>Is the Free tier really free forever?</dt>
-          <dd>Yes. No credit card, no trial period — just limited daily quota.</dd>
-          <dt>Why pay if I can self-host?</dt>
-          <dd>Self-hosting is always free. The hosted tiers exist for convenience and to fund ongoing development and data curation.</dd>
+          <dt>What does the Free tier actually include?</dt>
+          <dd>Full read access — list all shrines, look up individual shrines by ID, search by name, and filter by country. 500 requests per day is enough to build and ship a real side project.</dd>
+          <dt>What do I get by upgrading to Developer?</dt>
+          <dd>40× more daily requests (20,000/day), which handles real production traffic. The endpoints are the same — you're paying for scale and reliability, and to support the project.</dd>
+          <dt>When does Pro make sense?</dt>
+          <dd>When you need unlimited requests, or when you want to submit, update, or delete shrine entries programmatically via the API — for data curators and high-traffic apps.</dd>
+          <dt>What happens when I hit my daily limit?</dt>
+          <dd>Requests return a 429 status until the counter resets at midnight UTC. Your key stays active — upgrade anytime to raise or remove the limit.</dd>
+          <dt>Why pay when I can self-host for free?</dt>
+          <dd>You don't have to. Self-hosting is always free and has no restrictions. Paid tiers fund the hosted service, data curation, and the 312+ shrine dataset maintained here.</dd>
         </dl>
       </div>
     </section>

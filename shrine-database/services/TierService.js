@@ -22,14 +22,9 @@ class TierService {
     return apiKeyDoc.dailyRequestCount < tier.dailyLimit;
   }
 
-  static isPathAllowed(tierName, hasId) {
-    if (tierName === "free" && hasId) return false;
-    return true;
-  }
-
   static formatLimit(tierName) {
     const tier = TierService.getTier(tierName);
-    return tier.dailyLimit === Infinity ? "Unlimited" : tier.dailyLimit;
+    return tier.dailyLimit === Infinity ? "Unlimited" : tier.dailyLimit.toLocaleString();
   }
 
   static remainingRequests(apiKeyDoc) {

@@ -34,13 +34,6 @@ const authenticate = async (req, res, next) => {
       });
     }
 
-    if (!TierService.isPathAllowed(apiKeyDoc.tier, !!req.params.id)) {
-      return res.status(403).json({
-        error: "The Free tier does not allow individual shrine lookups.",
-        upgrade: "/pricing",
-      });
-    }
-
     apiKeyDoc.dailyRequestCount += 1;
     await apiKeyDoc.save();
 

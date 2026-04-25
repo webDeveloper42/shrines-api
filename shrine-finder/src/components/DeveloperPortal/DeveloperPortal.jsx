@@ -57,7 +57,7 @@ function DeveloperPortal() {
             <>
               <h2 className="portal__card-title">Free Registration</h2>
               <p className="portal__card-desc">
-                Starts with <strong>100 requests/day</strong> on the Free tier.
+                Starts with <strong>500 requests/day</strong> on the Free tier — full read access included.
                 Upgrade anytime from the{" "}
                 <Link to="/pricing" className="portal__inline-link">pricing page</Link>.
               </p>
@@ -114,9 +114,9 @@ function DeveloperPortal() {
         <div className="portal__tiers-summary">
           <h2 className="portal__sidebar-title">Plan Comparison</h2>
           {[
-            { name: "Free", price: "$0/mo", limit: "100 req/day", access: "GET list only" },
-            { name: "Developer", price: "$9/mo", limit: "10,000 req/day", access: "GET list + individual" },
-            { name: "Pro", price: "$29/mo", limit: "Unlimited", access: "Full CRUD" },
+            { name: "Free", price: "$0/mo", limit: "500 req/day", access: "Full read access" },
+            { name: "Developer", price: "$9/mo", limit: "20,000 req/day", access: "Full read access" },
+            { name: "Pro", price: "$29/mo", limit: "Unlimited", access: "Read + Write" },
           ].map((t) => (
             <div key={t.name} className="portal__tier-row">
               <div className="portal__tier-name">{t.name}</div>

@@ -95,7 +95,7 @@ function ApiDocs() {
           <Endpoint
             method="GET"
             path="/api/shrines/:id"
-            tier="Developer · Pro"
+            tier="Free · Developer · Pro"
             description="Returns a single shrine by its MongoDB ID."
           >
             <CodeBlock>{`curl ${BASE}/api/shrines/64a1b2c3d4e5f6a7b8c9d0e1 \\
