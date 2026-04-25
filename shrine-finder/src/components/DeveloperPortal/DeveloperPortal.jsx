@@ -97,8 +97,8 @@ function DeveloperPortal() {
                 </button>
               </div>
               <div className="portal__next-steps">
-                <h3>Next steps</h3>
-                <p>Use your key in every request:</p>
+                <h3 className="portal__next-steps-title">Next steps</h3>
+                <p className="portal__next-steps-desc">Use your key in every request:</p>
                 <pre className="portal__snippet">{`curl ${API_BASE}/api/shrines \\
   -H "X-API-Key: ${apiKey}"`}</pre>
                 <div className="portal__next-links">

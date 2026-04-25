@@ -210,13 +210,13 @@
   gap: 12px;
 }
 
-.docs__cta-box h3 {
+.docs__cta-box-title {
   margin: 0;
   font-size: 1.25rem;
   color: var(--text-1);
 }
 
-.docs__cta-box p {
+.docs__cta-box-text {
   margin: 0;
   font-size: 0.9rem;
   color: var(--text-2);

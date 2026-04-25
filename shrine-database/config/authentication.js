@@ -1,5 +1,8 @@
-const { v4: uuidv4 } = require("uuid");
+// Key generation is handled by ApiKeyService (services/ApiKeyService.js).
+// This file is kept for backwards compatibility — prefer importing ApiKeyService directly.
+const ApiKeyService = require("../services/ApiKeyService");
 
-const generateApiKey = () => `shrines_${uuidv4().replace(/-/g, "")}`;
-
-module.exports = { generateApiKey };
+module.exports = {
+  generateApiKey: () => ApiKeyService.generateRawKey(),
+  hashKey: (rawKey) => ApiKeyService.hashKey(rawKey),
+};

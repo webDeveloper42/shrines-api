@@ -33,7 +33,9 @@ function Header({ counter }) {
           aria-label="Toggle menu"
           onClick={() => setMenuOpen((o) => !o)}
         >
-          <span /><span /><span />
+          <span className="header__burger-line" />
+          <span className="header__burger-line" />
+          <span className="header__burger-line" />
         </button>
       </div>
 

@@ -53,14 +53,15 @@
   min-width: 0;
 }
 
-.pricing__oss-content strong {
+.pricing__oss-heading {
   font-size: 0.95rem;
   color: var(--text-1);
   display: block;
   margin-bottom: 4px;
+  font-weight: 700;
 }
 
-.pricing__oss-content p {
+.pricing__oss-text {
   margin: 0;
   font-size: 0.87rem;
   color: var(--text-2);

@@ -1,0 +1,14 @@
+# Global owner — reviews required on all PRs
+* @webDeveloper42
+
+# Backend
+/shrine-database/ @webDeveloper42
+
+# Frontend
+/shrine-finder/ @webDeveloper42
+
+# Security-sensitive files — always require maintainer review
+SECURITY.md @webDeveloper42
+shrine-database/middleware/authMiddleware.js @webDeveloper42
+shrine-database/services/ApiKeyService.js @webDeveloper42
+shrine-database/models/apiKey.js @webDeveloper42

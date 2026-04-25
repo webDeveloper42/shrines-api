@@ -1,4 +1,6 @@
 const { Router } = require("express");
+const { paymentLimiter } = require("../../middleware/rateLimitMiddleware");
+const { validate, upgradeRules } = require("../../middleware/validationMiddleware");
 const {
   createUpgradeSession,
   handleWebhook,
@@ -8,8 +10,8 @@ const {
 
 const router = Router();
 
-router.post("/upgrade", createUpgradeSession);
-router.post("/webhook", handleWebhook);
+router.post("/upgrade", paymentLimiter, upgradeRules, validate, createUpgradeSession);
+router.post("/webhook", handleWebhook); // no rate limit — Stripe controls delivery
 router.get("/success", paymentSuccess);
 router.get("/cancel", paymentCancel);
 

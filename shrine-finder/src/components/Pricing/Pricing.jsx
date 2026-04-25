@@ -59,8 +59,8 @@ function Pricing() {
       <div className="pricing__oss-banner">
         <div className="pricing__oss-icon">⚡</div>
         <div className="pricing__oss-content">
-          <strong>Open Source — Self-Host for Free</strong>
-          <p>
+          <span className="pricing__oss-heading">Open Source — Self-Host for Free</span>
+          <p className="pricing__oss-text">
             The entire Shrine Database API is MIT licensed. Clone the repo, run
             it on your own server, and enjoy unlimited usage with no restrictions.
             The hosted API tiers below support the project's continued development.

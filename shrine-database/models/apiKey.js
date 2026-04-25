@@ -2,20 +2,34 @@ const mongoose = require("mongoose");
 
 const apiKeySchema = new mongoose.Schema(
   {
-    key: { type: String, required: true, unique: true },
-    email: { type: String, required: true, lowercase: true, trim: true },
+    keyHash: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      lowercase: true,
+      trim: true,
+      maxlength: 254,
+    },
     tier: {
       type: String,
       enum: ["free", "developer", "pro"],
       default: "free",
     },
-    dailyRequestCount: { type: Number, default: 0 },
+    dailyRequestCount: { type: Number, default: 0, min: 0 },
     dailyRequestReset: { type: Date, default: () => new Date() },
     stripeCustomerId: { type: String, default: null },
     stripeSubscriptionId: { type: String, default: null },
     active: { type: Boolean, default: true },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    strict: true,
+  }
 );
 
 apiKeySchema.methods.resetDailyCountIfNeeded = function () {

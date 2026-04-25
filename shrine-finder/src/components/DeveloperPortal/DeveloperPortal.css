@@ -214,13 +214,13 @@
   gap: 10px;
 }
 
-.portal__next-steps h3 {
+.portal__next-steps-title {
   margin: 0;
   font-size: 0.95rem;
   color: var(--text-1);
 }
 
-.portal__next-steps p {
+.portal__next-steps-desc {
   margin: 0;
   font-size: 0.85rem;
   color: var(--text-2);

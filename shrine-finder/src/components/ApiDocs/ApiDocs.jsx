@@ -186,8 +186,8 @@ X-API-Key: shrines_your_key_here
         </div>
 
         <div className="docs__cta-box">
-          <h3>Ready to start building?</h3>
-          <p>Get your free API key in seconds — no credit card required.</p>
+          <h3 className="docs__cta-box-title">Ready to start building?</h3>
+          <p className="docs__cta-box-text">Get your free API key in seconds — no credit card required.</p>
           <div className="docs__cta-links">
             <Link to="/developers" className="docs__cta-link">Get API Key</Link>
             <Link to="/pricing" className="docs__cta-link docs__cta-link--outline">View Pricing</Link>

@@ -1,27 +1,25 @@
-const ApiKey = require("../models/apiKey");
-const { createCheckoutSession, constructWebhookEvent } = require("../services/stripeService");
+const ApiKeyService = require("../services/ApiKeyService");
+const ApiKeyRepository = require("../repositories/ApiKeyRepository");
+const StripeService = require("../services/StripeService");
 
 const createUpgradeSession = async (req, res, next) => {
   try {
     const { tier } = req.body;
-    const key = req.headers["x-api-key"];
+    const rawKey = req.headers["x-api-key"];
 
-    if (!key) return res.status(401).json({ error: "Missing X-API-Key header." });
-    if (!["developer", "pro"].includes(tier)) {
-      return res.status(400).json({ error: "tier must be 'developer' or 'pro'." });
-    }
+    if (!rawKey) return res.status(401).json({ error: "Missing X-API-Key header." });
 
-    const apiKeyDoc = await ApiKey.findOne({ key, active: true });
+    const apiKeyDoc = await ApiKeyService.authenticate(rawKey);
     if (!apiKeyDoc) return res.status(401).json({ error: "Invalid API key." });
     if (apiKeyDoc.tier === tier) {
       return res.status(400).json({ error: `You are already on the ${tier} tier.` });
     }
 
     const baseUrl = `${req.protocol}://${req.get("host")}`;
-    const session = await createCheckoutSession({
+    const session = await StripeService.createCheckoutSession({
       email: apiKeyDoc.email,
       tier,
-      apiKey: key,
+      keyHash: apiKeyDoc.keyHash, // never send plaintext key to Stripe
       successUrl: `${baseUrl}/api/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${baseUrl}/api/payment/cancel`,
     });
@@ -37,32 +35,29 @@ const handleWebhook = async (req, res, next) => {
   let event;
 
   try {
-    event = constructWebhookEvent(req.body, sig);
+    event = StripeService.constructWebhookEvent(req.body, sig);
   } catch (err) {
-    return res.status(400).json({ error: `Webhook signature verification failed: ${err.message}` });
+    return res.status(400).json({ error: "Webhook signature verification failed." });
   }
 
   try {
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
-      const { apiKey, targetTier } = session.metadata;
+      const { keyHash, targetTier } = session.metadata;
 
-      await ApiKey.findOneAndUpdate(
-        { key: apiKey },
-        {
-          tier: targetTier,
-          stripeCustomerId: session.customer,
-          stripeSubscriptionId: session.subscription,
-        }
-      );
+      await ApiKeyRepository.updateByKeyHash(keyHash, {
+        tier: targetTier,
+        stripeCustomerId: session.customer,
+        stripeSubscriptionId: session.subscription,
+      });
     }
 
     if (event.type === "customer.subscription.deleted") {
       const subscription = event.data.object;
-      await ApiKey.findOneAndUpdate(
-        { stripeSubscriptionId: subscription.id },
-        { tier: "free", stripeSubscriptionId: null }
-      );
+      await ApiKeyRepository.updateBySubscriptionId(subscription.id, {
+        tier: "free",
+        stripeSubscriptionId: null,
+      });
     }
 
     res.json({ received: true });
@@ -71,11 +66,11 @@ const handleWebhook = async (req, res, next) => {
   }
 };
 
-const paymentSuccess = (req, res) => {
-  res.json({ message: "Payment successful! Your API key tier has been upgraded." });
+const paymentSuccess = (_req, res) => {
+  res.json({ message: "Payment successful. Your API key tier has been upgraded." });
 };
 
-const paymentCancel = (req, res) => {
+const paymentCancel = (_req, res) => {
   res.json({ message: "Payment cancelled. Your tier was not changed." });
 };
 

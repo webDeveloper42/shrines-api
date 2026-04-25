@@ -121,7 +121,7 @@
   padding: 4px;
 }
 
-.header__burger span {
+.header__burger-line {
   display: block;
   width: 22px;
   height: 2px;

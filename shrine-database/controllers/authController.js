@@ -1,28 +1,17 @@
-const ApiKey = require("../models/apiKey");
-const { generateApiKey } = require("../config/authentication");
-const TIERS = require("../config/tiers");
+const ApiKeyService = require("../services/ApiKeyService");
+const TierService = require("../services/TierService");
 
 const register = async (req, res, next) => {
   try {
     const { email } = req.body;
-    if (!email) return res.status(400).json({ error: "Email is required." });
-
-    const existing = await ApiKey.findOne({ email, tier: "free" });
-    if (existing) {
-      return res.status(409).json({
-        error: "An API key for this email already exists.",
-        tier: existing.tier,
-      });
-    }
-
-    const key = generateApiKey();
-    const apiKeyDoc = await ApiKey.create({ key, email, tier: "free" });
+    const rawKey = await ApiKeyService.register(email);
+    const tier = TierService.getTier("free");
 
     res.status(201).json({
-      message: "Free API key created. Keep this key safe — it won't be shown again.",
-      apiKey: apiKeyDoc.key,
-      tier: apiKeyDoc.tier,
-      dailyLimit: TIERS.free.dailyLimit,
+      message: "Free API key created. Save this key — it will not be shown again.",
+      apiKey: rawKey,
+      tier: "free",
+      dailyLimit: tier.dailyLimit,
     });
   } catch (err) {
     next(err);
@@ -31,25 +20,21 @@ const register = async (req, res, next) => {
 
 const getKeyInfo = async (req, res, next) => {
   try {
-    const key = req.headers["x-api-key"];
-    if (!key) return res.status(401).json({ error: "Missing X-API-Key header." });
+    const rawKey = req.headers["x-api-key"];
+    if (!rawKey) return res.status(401).json({ error: "Missing X-API-Key header." });
 
-    const apiKeyDoc = await ApiKey.findOne({ key, active: true });
+    const apiKeyDoc = await ApiKeyService.getInfoByRawKey(rawKey);
     if (!apiKeyDoc) return res.status(401).json({ error: "Invalid or inactive API key." });
 
     apiKeyDoc.resetDailyCountIfNeeded();
-    const tier = TIERS[apiKeyDoc.tier];
 
     res.json({
       email: apiKeyDoc.email,
       tier: apiKeyDoc.tier,
-      dailyLimit: tier.dailyLimit === Infinity ? "Unlimited" : tier.dailyLimit,
+      dailyLimit: TierService.formatLimit(apiKeyDoc.tier),
       dailyRequestCount: apiKeyDoc.dailyRequestCount,
-      remainingRequests:
-        tier.dailyLimit === Infinity
-          ? "Unlimited"
-          : tier.dailyLimit - apiKeyDoc.dailyRequestCount,
-      allowedMethods: tier.allowedMethods,
+      remainingRequests: TierService.remainingRequests(apiKeyDoc),
+      allowedMethods: TierService.getTier(apiKeyDoc.tier).allowedMethods,
       createdAt: apiKeyDoc.createdAt,
     });
   } catch (err) {

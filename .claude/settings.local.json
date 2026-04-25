@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -rf /Users/ceotrainlock/Documents/coding/my-projects/shrines/shrine-database/.git)",
+      "Bash(rm -rf /Users/ceotrainlock/Documents/coding/my-projects/shrines/shrine-finder/.git)"
+    ]
+  }
+}

@@ -1,6 +1,13 @@
 const { Router } = require("express");
 const { authenticate, publicRead } = require("../../middleware/authMiddleware");
 const {
+  validate,
+  shrineCreateRules,
+  shrineUpdateRules,
+  objectIdParam,
+  shrineQueryRules,
+} = require("../../middleware/validationMiddleware");
+const {
   getShrines,
   getShrine,
   createShrine,
@@ -10,13 +17,10 @@ const {
 
 const router = Router();
 
-// Public GET routes — no API key needed (web app browsing)
-router.get("/", publicRead, getShrines);
-router.get("/:id", publicRead, getShrine);
-
-// Write routes — require a Pro API key
-router.post("/", authenticate, createShrine);
-router.put("/:id", authenticate, updateShrine);
-router.delete("/:id", authenticate, deleteShrine);
+router.get("/", publicRead, shrineQueryRules, validate, getShrines);
+router.get("/:id", publicRead, objectIdParam, validate, getShrine);
+router.post("/", authenticate, shrineCreateRules, validate, createShrine);
+router.put("/:id", authenticate, objectIdParam, shrineUpdateRules, validate, updateShrine);
+router.delete("/:id", authenticate, objectIdParam, validate, deleteShrine);
 
 module.exports = router;
