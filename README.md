@@ -117,6 +117,7 @@ Run the full stack locally in under 5 minutes.
 
 - Node.js ≥ 18
 - MongoDB (local or [Atlas free tier](https://mongodb.com/atlas))
+- Stripe account — **optional**, only needed to test the upgrade flow
 
 ### Setup
 
@@ -129,7 +130,7 @@ cd shrines-api
 
 ```bash
 cd shrine-database
-cp .env.example .env      # fill in MONGODB_URI at minimum
+cp .env.example .env      # MONGODB_URI is the only required field
 npm install
 node seed.js              # loads all 312 shrines into MongoDB
 npm start                 # API runs on :3000
@@ -144,7 +145,13 @@ npm install
 npm run dev               # UI runs on :5173
 ```
 
-The `.env.example` files in each folder document every available variable. For a self-hosted setup you only need `MONGODB_URI` on the backend — Stripe keys are optional and only needed if you want to run the paid tier system.
+**Stripe is fully optional locally.** The API runs without any Stripe keys — registration, browsing, and authentication all work. Payment routes return a clear "not configured" message instead of an error. To test the full upgrade flow locally:
+
+1. Add your [Stripe test keys](https://dashboard.stripe.com/test/apikeys) to `shrine-database/.env`
+2. Install the [Stripe CLI](https://stripe.com/docs/stripe-cli) and run `npm run stripe:listen` in a third terminal — it prints a webhook secret to paste into `.env`
+3. Create two test Products in the Stripe dashboard ($9/mo Developer, $29/mo Pro) and add their Price IDs to `.env`
+
+The `.env.example` file has step-by-step instructions for each of these.
 
 ### Deploy to Render
 

@@ -2,8 +2,19 @@ const ApiKeyService = require("../services/ApiKeyService");
 const ApiKeyRepository = require("../repositories/ApiKeyRepository");
 const StripeService = require("../services/StripeService");
 
+const STRIPE_NOT_CONFIGURED = {
+  error: "Payment processing is not enabled on this instance.",
+  setup:
+    "Add STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_DEVELOPER_PRICE_ID, and " +
+    "STRIPE_PRO_PRICE_ID to your .env file. See .env.example for step-by-step instructions.",
+};
+
 const createUpgradeSession = async (req, res, next) => {
   try {
+    if (!StripeService.isConfigured()) {
+      return res.status(503).json(STRIPE_NOT_CONFIGURED);
+    }
+
     const { tier } = req.body;
     const rawKey = req.headers["x-api-key"];
 
@@ -19,7 +30,7 @@ const createUpgradeSession = async (req, res, next) => {
     const session = await StripeService.createCheckoutSession({
       email: apiKeyDoc.email,
       tier,
-      keyHash: apiKeyDoc.keyHash, // never send plaintext key to Stripe
+      keyHash: apiKeyDoc.keyHash,
       successUrl: `${baseUrl}/api/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${baseUrl}/api/payment/cancel`,
     });
@@ -31,13 +42,19 @@ const createUpgradeSession = async (req, res, next) => {
 };
 
 const handleWebhook = async (req, res, next) => {
+  if (!StripeService.isConfigured()) {
+    return res.status(503).json(STRIPE_NOT_CONFIGURED);
+  }
+
   const sig = req.headers["stripe-signature"];
   let event;
 
   try {
     event = StripeService.constructWebhookEvent(req.body, sig);
   } catch (err) {
-    return res.status(400).json({ error: "Webhook signature verification failed." });
+    return res.status(400).json({
+      error: "Webhook signature verification failed. Check that STRIPE_WEBHOOK_SECRET matches your Stripe dashboard or Stripe CLI output.",
+    });
   }
 
   try {
