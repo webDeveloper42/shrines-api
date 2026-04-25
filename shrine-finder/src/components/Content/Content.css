@@ -1,0 +1,8 @@
+.content {
+  display: flex;
+  margin: 20px;
+  width: 100%;
+}
+.content__wrapper {
+  width: 100%;
+}

@@ -1,0 +1,37 @@
+services:
+  # ── Backend API ────────────────────────────────────────────
+  - type: web
+    name: shrine-api
+    runtime: node
+    rootDir: shrine-database
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/shrines?limit=1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false          # set in Render dashboard — use MongoDB Atlas URI
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_DEVELOPER_PRICE_ID
+        sync: false
+      - key: STRIPE_PRO_PRICE_ID
+        sync: false
+
+  # ── Frontend Static Site ───────────────────────────────────
+  - type: web
+    name: shrine-finder
+    runtime: static
+    rootDir: shrine-finder
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE
+        sync: false          # set to your shrine-api Render URL, e.g. https://shrine-api.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
