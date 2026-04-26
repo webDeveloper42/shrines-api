@@ -15,7 +15,7 @@ services:
         sync: false
 
       # Comma-separated list of allowed frontend origins
-      # Example: https://shrine-finder.onrender.com
+      # Example: https://client.onrender.com
       - key: ALLOWED_ORIGINS
         sync: false
 

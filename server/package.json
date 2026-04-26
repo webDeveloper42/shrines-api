@@ -1,5 +1,5 @@
 {
-  "name": "shrine-database",
+  "name": "server",
   "version": "1.0.0",
   "description": "backend of shrine database",
   "main": "server.js",

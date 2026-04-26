@@ -24,7 +24,7 @@
 ## Code checklist (skip if only adding shrine data)
 
 - [ ] Tested locally (`npm start` / `npm run dev`)
-- [ ] No new linting errors (`npm run lint` in shrine-finder/)
+- [ ] No new linting errors (`npm run lint` in client/)
 - [ ] New routes have input validation (validationMiddleware)
 - [ ] No `.env` files or API keys committed
 - [ ] BEM naming used for any new CSS classes

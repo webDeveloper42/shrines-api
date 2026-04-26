@@ -3,7 +3,7 @@ services:
   - type: web
     name: shrine-api
     runtime: node
-    rootDir: shrine-database
+    rootDir: server
     buildCommand: npm install
     startCommand: node server.js
     healthCheckPath: /api/shrines?limit=1
@@ -18,7 +18,7 @@ services:
         sync: false
 
       # Comma-separated list of allowed frontend origins
-      # Example: https://shrine-finder.onrender.com
+      # Example: https://client.onrender.com
       - key: ALLOWED_ORIGINS
         sync: false
 
@@ -39,9 +39,9 @@ services:
 
   # ── Frontend Static Site ───────────────────────────────────────────────────
   - type: web
-    name: shrine-finder
+    name: client
     runtime: static
-    rootDir: shrine-finder
+    rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:

@@ -8,7 +8,7 @@ Only the latest `main` branch is actively maintained. Older branches do not rece
 
 **Do not open a public GitHub issue for security vulnerabilities.**
 
-Email **security@shrine-database.dev** with:
+Email **security@server.dev** with:
 
 - What the vulnerability is and where it exists
 - Steps to reproduce or a proof of concept
@@ -18,12 +18,12 @@ You will receive an acknowledgement within **72 hours**. If you don't hear back,
 
 ## What we fix and when
 
-| Severity | Target fix time |
-|---|---|
-| Critical (API key bypass, data exfiltration) | 48 hours |
-| High (auth bypass, tier manipulation, payment fraud) | 7 days |
-| Medium (rate limit bypass, info disclosure) | 30 days |
-| Low (hardening improvements) | Next release |
+| Severity                                             | Target fix time |
+| ---------------------------------------------------- | --------------- |
+| Critical (API key bypass, data exfiltration)         | 48 hours        |
+| High (auth bypass, tier manipulation, payment fraud) | 7 days          |
+| Medium (rate limit bypass, info disclosure)          | 30 days         |
+| Low (hardening improvements)                         | Next release    |
 
 After a fix is released we will publish a brief disclosure. Reporters are credited unless they prefer anonymity.
 

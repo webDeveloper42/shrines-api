@@ -32,7 +32,7 @@ We do not tolerate harassment, personal attacks, or bad-faith behavior of any ki
 
 ## Reporting problems
 
-To report a conduct issue, email **conduct@shrine-database.dev**. Include what happened, when, and any relevant links. Reports are handled privately.
+To report a conduct issue, email **conduct@server.dev**. Include what happened, when, and any relevant links. Reports are handled privately.
 
 ## The bottom line
 

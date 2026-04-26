@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/shrine-database"
+    directory: "/server"
     schedule:
       interval: "weekly"
       day: "monday"
@@ -11,7 +11,7 @@ updates:
       - "backend"
 
   - package-ecosystem: "npm"
-    directory: "/shrine-finder"
+    directory: "/client"
     schedule:
       interval: "weekly"
       day: "monday"

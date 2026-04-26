@@ -3,8 +3,8 @@
 > A community-built REST API for Japanese shrines — open source, free to self-host, and free to use up to 500 requests/day.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](LICENSE)
-[![Node ≥18](https://img.shields.io/badge/Node-%3E%3D18-green)](shrine-database/package.json)
-[![Shrines](https://img.shields.io/badge/Shrines-312%2B-orange)](shrine-database/shrines.json)
+[![Node ≥18](https://img.shields.io/badge/Node-%3E%3D18-green)](server/package.json)
+[![Shrines](https://img.shields.io/badge/Shrines-312%2B-orange)](server/shrines.json)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 ---
@@ -17,18 +17,18 @@ Every shrine record includes its name, location, full address, and GPS coordinat
 
 The project has two parts:
 
-| Part | What it is |
-|---|---|
-| `shrine-database/` | Node.js/Express REST API backed by MongoDB |
-| `shrine-finder/` | React/Vite frontend for browsing the database |
+| Part      | What it is                                    |
+| --------- | --------------------------------------------- |
+| `server/` | Node.js/Express REST API backed by MongoDB    |
+| `client/` | React/Vite frontend for browsing the database |
 
-The API is MIT licensed. Run it yourself for free with no restrictions, or use the hosted version at **[shrine-database.dev](https://shrine-database.dev)** with a free API key.
+The API is MIT licensed. Run it yourself for free with no restrictions, or use the hosted version at **[server.dev](https://server.dev)** with a free API key.
 
 ---
 
 ## Quick start — use the hosted API
 
-**1. Get a free API key** at [shrine-database.dev/developers](https://shrine-database.dev/developers) — no credit card, instant.
+**1. Get a free API key** at [server.dev/developers](https://server.dev/developers) — no credit card, instant.
 
 **2. Make your first request:**
 
@@ -61,16 +61,16 @@ All endpoints return JSON. The free tier (500 req/day) includes full read access
 
 ### Endpoints
 
-| Method | Path | Tier | Description |
-|---|---|---|---|
-| `GET` | `/api/shrines` | Free+ | List shrines with pagination |
-| `GET` | `/api/shrines/:id` | Free+ | Fetch a single shrine by ID |
-| `GET` | `/api/shrines?search=fushimi` | Free+ | Search shrines by name |
-| `GET` | `/api/shrines?country=Japan` | Free+ | Filter by country |
-| `GET` | `/api/shrines?page=2&limit=50` | Free+ | Paginate results |
-| `POST` | `/api/shrines` | Pro | Submit a new shrine |
-| `PUT` | `/api/shrines/:id` | Pro | Update a shrine |
-| `DELETE` | `/api/shrines/:id` | Pro | Remove a shrine |
+| Method   | Path                           | Tier  | Description                  |
+| -------- | ------------------------------ | ----- | ---------------------------- |
+| `GET`    | `/api/shrines`                 | Free+ | List shrines with pagination |
+| `GET`    | `/api/shrines/:id`             | Free+ | Fetch a single shrine by ID  |
+| `GET`    | `/api/shrines?search=fushimi`  | Free+ | Search shrines by name       |
+| `GET`    | `/api/shrines?country=Japan`   | Free+ | Filter by country            |
+| `GET`    | `/api/shrines?page=2&limit=50` | Free+ | Paginate results             |
+| `POST`   | `/api/shrines`                 | Pro   | Submit a new shrine          |
+| `PUT`    | `/api/shrines/:id`             | Pro   | Update a shrine              |
+| `DELETE` | `/api/shrines/:id`             | Pro   | Remove a shrine              |
 
 ### Authentication
 
@@ -99,13 +99,13 @@ curl https://shrine-api.onrender.com/api/auth/me \
 
 ### Pricing
 
-| Tier | Price | Requests/day | Access |
-|---|---|---|---|
-| Free | $0 | 500 | Full read |
-| Developer | $9/mo | 20,000 | Full read |
-| Pro | $29/mo | Unlimited | Full read + write |
+| Tier      | Price  | Requests/day | Access            |
+| --------- | ------ | ------------ | ----------------- |
+| Free      | $0     | 500          | Full read         |
+| Developer | $9/mo  | 20,000       | Full read         |
+| Pro       | $29/mo | Unlimited    | Full read + write |
 
-Self-hosting is always free with no request limits. See [shrine-database.dev/pricing](https://shrine-database.dev/pricing) for details.
+Self-hosting is always free with no request limits. See [server.dev/pricing](https://server.dev/pricing) for details.
 
 ---
 
@@ -129,7 +129,7 @@ cd shrines-api
 **Backend:**
 
 ```bash
-cd shrine-database
+cd server
 cp .env.example .env      # MONGODB_URI is the only required field
 npm install
 node seed.js              # loads all 312 shrines into MongoDB
@@ -139,7 +139,7 @@ npm start                 # API runs on :3000
 **Frontend** (separate terminal):
 
 ```bash
-cd shrine-finder
+cd client
 cp .env.example .env      # set VITE_API_BASE=http://localhost:3000
 npm install
 npm run dev               # UI runs on :5173
@@ -147,7 +147,7 @@ npm run dev               # UI runs on :5173
 
 **Stripe is fully optional locally.** The API runs without any Stripe keys — registration, browsing, and authentication all work. Payment routes return a clear "not configured" message instead of an error. To test the full upgrade flow locally:
 
-1. Add your [Stripe test keys](https://dashboard.stripe.com/test/apikeys) to `shrine-database/.env`
+1. Add your [Stripe test keys](https://dashboard.stripe.com/test/apikeys) to `server/.env`
 2. Install the [Stripe CLI](https://stripe.com/docs/stripe-cli) and run `npm run stripe:listen` in a third terminal — it prints a webhook secret to paste into `.env`
 3. Create two test Products in the Stripe dashboard ($9/mo Developer, $29/mo Pro) and add their Price IDs to `.env`
 
@@ -165,7 +165,7 @@ The most impactful contribution is adding shrine data. Japan has roughly 80,000 
 
 ### Adding shrines
 
-Edit [`shrine-database/shrines.json`](shrine-database/shrines.json) following this schema:
+Edit [`server/shrines.json`](server/shrines.json) following this schema:
 
 ```json
 {
@@ -174,13 +174,14 @@ Edit [`shrine-database/shrines.json`](shrine-database/shrines.json) following th
   "address": "Full address in English or Hepburn romanization",
   "country": "Japan",
   "coordinates": {
-    "latitude": 35.0000,
-    "longitude": 135.0000
+    "latitude": 35.0,
+    "longitude": 135.0
   }
 }
 ```
 
 Rules:
+
 - Real Shinto shrines (jinja) in Japan only
 - Coordinates must come from a verifiable source (Google Maps, Wikipedia)
 - No duplicates — search the file before adding
@@ -200,24 +201,24 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide — code standards, co
 
 ## Tech stack
 
-**Backend (`shrine-database/`)**
+**Backend (`server/`)**
 
-| | |
-|---|---|
-| Runtime | Node.js 18+ |
-| Framework | Express 5 |
-| Database | MongoDB + Mongoose |
-| Auth | SHA-256 hashed API keys |
-| Payments | Stripe Checkout |
-| Security | Helmet, express-mongo-sanitize, express-validator, express-rate-limit |
+|           |                                                                       |
+| --------- | --------------------------------------------------------------------- |
+| Runtime   | Node.js 18+                                                           |
+| Framework | Express 5                                                             |
+| Database  | MongoDB + Mongoose                                                    |
+| Auth      | SHA-256 hashed API keys                                               |
+| Payments  | Stripe Checkout                                                       |
+| Security  | Helmet, express-mongo-sanitize, express-validator, express-rate-limit |
 
-**Frontend (`shrine-finder/`)**
+**Frontend (`client/`)**
 
-| | |
-|---|---|
-| Framework | React 19 + Vite |
-| Routing | React Router 6 |
-| Styling | BEM CSS with CSS custom properties |
+|           |                                    |
+| --------- | ---------------------------------- |
+| Framework | React 19 + Vite                    |
+| Routing   | React Router 6                     |
+| Styling   | BEM CSS with CSS custom properties |
 
 **Architecture:** Thin controllers, OOP service and repository layers, centralized env config on both client and server.
 

@@ -20,15 +20,15 @@ function validate() {
   if (missing.length) {
     console.error(
       `[startup] Missing required environment variables:\n  ${missing.join("\n  ")}\n` +
-        `Copy shrine-database/.env.example to .env and fill in every value.`
+        `Copy server/.env.example to .env and fill in every value.`,
     );
     process.exit(1);
   }
 }
 
 const env = {
-  NODE_ENV:   process.env.NODE_ENV || "development",
-  PORT:       Number(process.env.PORT) || 3000,
+  NODE_ENV: process.env.NODE_ENV || "development",
+  PORT: Number(process.env.PORT) || 3000,
 
   MONGODB_URI: process.env.MONGODB_URI || "mongodb://localhost/shrines",
 
@@ -36,10 +36,10 @@ const env = {
     ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
     : ["http://localhost:5173", "http://localhost:5174"],
 
-  STRIPE_SECRET_KEY:          process.env.STRIPE_SECRET_KEY || null,
-  STRIPE_WEBHOOK_SECRET:      process.env.STRIPE_WEBHOOK_SECRET || null,
-  STRIPE_DEVELOPER_PRICE_ID:  process.env.STRIPE_DEVELOPER_PRICE_ID || null,
-  STRIPE_PRO_PRICE_ID:        process.env.STRIPE_PRO_PRICE_ID || null,
+  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || null,
+  STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET || null,
+  STRIPE_DEVELOPER_PRICE_ID: process.env.STRIPE_DEVELOPER_PRICE_ID || null,
+  STRIPE_PRO_PRICE_ID: process.env.STRIPE_PRO_PRICE_ID || null,
 };
 
 validate();

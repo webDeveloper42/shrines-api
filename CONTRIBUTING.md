@@ -4,18 +4,18 @@ Shrine Database accepts contributions that directly improve the shrine dataset, 
 
 ## What we accept
 
-| Contribution | Accepted |
-|---|---|
-| Add real Japanese shrine entries with verifiable data | ✅ |
-| Fix incorrect shrine names, addresses, or coordinates | ✅ |
-| Bug fixes in the API or frontend | ✅ |
-| Performance or security improvements | ✅ |
-| Improved API docs or developer guides | ✅ |
+| Contribution                                              | Accepted                 |
+| --------------------------------------------------------- | ------------------------ |
+| Add real Japanese shrine entries with verifiable data     | ✅                       |
+| Fix incorrect shrine names, addresses, or coordinates     | ✅                       |
+| Bug fixes in the API or frontend                          | ✅                       |
+| Performance or security improvements                      | ✅                       |
+| Improved API docs or developer guides                     | ✅                       |
 | New shrine data fields (e.g., founding date, deity, type) | ✅ with discussion first |
-| Non-shrine locations (temples, castles, parks, etc.) | ❌ |
-| General Japan tourism features unrelated to shrines | ❌ |
-| Fabricated or unverifiable shrine data | ❌ |
-| Changes to the project's core purpose | ❌ |
+| Non-shrine locations (temples, castles, parks, etc.)      | ❌                       |
+| General Japan tourism features unrelated to shrines       | ❌                       |
+| Fabricated or unverifiable shrine data                    | ❌                       |
+| Changes to the project's core purpose                     | ❌                       |
 
 If you're unsure whether your contribution fits, open an issue before building it.
 
@@ -23,7 +23,7 @@ If you're unsure whether your contribution fits, open an issue before building i
 
 ## Adding shrine data
 
-This is the most valuable contribution you can make. The dataset lives in `shrine-database/shrines.json`.
+This is the most valuable contribution you can make. The dataset lives in `server/shrines.json`.
 
 ### Schema
 
@@ -34,8 +34,8 @@ This is the most valuable contribution you can make. The dataset lives in `shrin
   "address": "Full address in English or Hepburn romanization",
   "country": "Japan",
   "coordinates": {
-    "latitude": 35.0000,
-    "longitude": 135.0000
+    "latitude": 35.0,
+    "longitude": 135.0
   }
 }
 ```
@@ -60,14 +60,14 @@ git clone https://github.com/webDeveloper42/shrines-api.git
 cd shrines-api
 
 # Backend
-cd shrine-database
+cd server
 cp .env.example .env      # fill in all values
 npm install
 node seed.js              # load the shrine dataset
 npm start                 # API on :3000
 
 # Frontend (separate terminal)
-cd ../shrine-finder
+cd ../client
 cp .env.example .env      # VITE_API_BASE=http://localhost:3000
 npm install
 npm run dev               # UI on :5173
@@ -78,6 +78,7 @@ npm run dev               # UI on :5173
 ## Code standards
 
 **Backend:**
+
 - CommonJS modules (`require`/`module.exports`)
 - `async/await` throughout — no `.then()` chains in new code
 - OOP: data access in Repository classes, business logic in Service classes, thin controllers
@@ -85,13 +86,15 @@ npm run dev               # UI on :5173
 - All new auth routes must use `authLimiter`
 
 **Frontend:**
+
 - Functional React components only
 - BEM CSS naming — no element selectors (`.block h3`) inside BEM blocks; use explicit classes (`.block__title`)
 - All URLs and config values go through `src/config/env.js`, never hardcoded
 
 **Both:**
+
 - No `.env` files or API keys committed
-- Run `npm run lint` in `shrine-finder/` before opening a PR
+- Run `npm run lint` in `client/` before opening a PR
 
 ---
 

@@ -45,7 +45,7 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-// Public read-only — no key required, GET only (used by the shrine-finder web app)
+// Public read-only — no key required, GET only (used by the client web app)
 const publicRead = (req, res, next) => {
   if (req.method !== "GET") {
     return res.status(401).json({
