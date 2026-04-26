@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: shrine-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/shrines?limit=1
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # MongoDB Atlas connection string
+      # Format: mongodb+srv://<user>:<password>@<cluster>.mongodb.net/shrines
+      - key: MONGODB_URI
+        sync: false
+
+      # Comma-separated list of allowed frontend origins
+      # Example: https://shrine-finder.onrender.com
+      - key: ALLOWED_ORIGINS
+        sync: false
+
+      # Stripe secret key — use sk_live_... in production
+      - key: STRIPE_SECRET_KEY
+        sync: false
+
+      # Stripe webhook signing secret (from Stripe Dashboard → Webhooks)
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+
+      # Stripe Price IDs — create Products in Stripe Dashboard
+      - key: STRIPE_DEVELOPER_PRICE_ID
+        sync: false
+
+      - key: STRIPE_PRO_PRICE_ID
+        sync: false

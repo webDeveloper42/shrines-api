@@ -1,0 +1,25 @@
+.sidebar {
+  display: flex;
+  justify-content: center;
+  min-width: 15vw;
+  min-height: 85vh;
+}
+.sidebar__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sidebar__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  padding: 0;
+}
+
+.sidebar__list-item {
+  display: flex;
+  justify-content: flex-start;
+  list-style: none;
+  font-size: 18px;
+}

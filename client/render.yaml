@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: shrine-finder
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      # URL of the shrine-api service (no trailing slash)
+      # Example: https://shrine-api.onrender.com
+      - key: VITE_API_BASE
+        sync: false
+
+      # Full URL to your GitHub repository
+      - key: VITE_GITHUB_URL
+        sync: false
+
+      # Production frontend URL
+      - key: VITE_SITE_URL
+        sync: false
+
+      # App display name
+      - key: VITE_APP_NAME
+        value: Shrine Database
+
+      # Author name shown in footer
+      - key: VITE_AUTHOR_NAME
+        sync: false
+
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

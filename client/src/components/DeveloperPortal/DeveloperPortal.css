@@ -1,0 +1,322 @@
+.portal {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+}
+
+/* Hero */
+.portal__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin: 0 0 12px;
+}
+
+.portal__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin: 0 0 16px;
+  color: var(--text-1);
+}
+
+.portal__lead {
+  font-size: 1rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 0 48px;
+}
+
+/* Layout */
+.portal__layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .portal__layout { grid-template-columns: 1fr; }
+}
+
+/* Form card */
+.portal__form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+}
+
+.portal__card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text-1);
+}
+
+.portal__card-desc {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  margin: 0 0 28px;
+  line-height: 1.65;
+}
+
+.portal__inline-link {
+  color: var(--brand);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.portal__inline-link:hover { text-decoration: underline; }
+
+.portal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.portal__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-1);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.portal__input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text-1);
+  outline: none;
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+
+.portal__input:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-light);
+}
+
+.portal__error {
+  font-size: 0.85rem;
+  color: var(--brand);
+  margin: 0;
+  padding: 10px 14px;
+  background: var(--brand-light);
+  border: 1px solid var(--brand-border);
+  border-radius: var(--radius-sm);
+}
+
+.portal__submit {
+  padding: 13px 20px;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s var(--ease), transform 0.15s var(--ease);
+}
+
+.portal__submit:hover:not(:disabled) {
+  background: var(--brand-hover);
+  transform: translateY(-1px);
+}
+
+.portal__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Success state */
+.portal__success {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.portal__success-icon {
+  width: 48px;
+  height: 48px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 1.3rem;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portal__success-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-1);
+  margin: 0;
+}
+
+.portal__success-desc {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  margin: 0;
+}
+
+.portal__key-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.portal__key {
+  font-size: 0.82rem;
+  color: var(--text-1);
+  word-break: break-all;
+  flex: 1;
+  user-select: all;
+}
+
+.portal__copy {
+  padding: 6px 14px;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s var(--ease);
+}
+
+.portal__copy:hover { background: var(--brand-hover); }
+
+.portal__next-steps {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.portal__next-steps-title {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-1);
+}
+
+.portal__next-steps-desc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-2);
+}
+
+.portal__snippet {
+  background: #1a1208;
+  color: #e8dfd0;
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  font-size: 0.76rem;
+  overflow-x: auto;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.portal__next-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.portal__next-link {
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--brand);
+  color: #fff;
+  transition: background 0.15s var(--ease);
+}
+
+.portal__next-link--outline {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--text-1);
+}
+
+.portal__next-link:hover { opacity: 0.85; }
+
+/* Sidebar */
+.portal__tiers-summary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.portal__sidebar-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-1);
+  margin: 0;
+}
+
+.portal__tier-row {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  background: var(--surface-2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.portal__tier-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--text-1);
+}
+
+.portal__tier-price {
+  font-size: 0.83rem;
+  color: var(--brand);
+  font-weight: 600;
+  text-align: right;
+}
+
+.portal__tier-limit,
+.portal__tier-access {
+  font-size: 0.78rem;
+  color: var(--text-3);
+}
+
+.portal__tier-access { text-align: right; }
+
+.portal__see-pricing {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.portal__see-pricing:hover { text-decoration: underline; }
