@@ -1,6 +1,6 @@
 const ApiKeyService = require("../services/ApiKeyService");
 const ApiKeyRepository = require("../repositories/ApiKeyRepository");
-const StripeService = require("../services/StripeService");
+const StripeService = require("../services/stripeService");
 
 const STRIPE_NOT_CONFIGURED = {
   error: "Payment processing is not enabled on this instance.",
