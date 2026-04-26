@@ -1,7 +1,7 @@
 import "./Shrines.css";
 import ListItem from "../ListItem/ListItem";
 
-function Shrines({ shrines, loading, totalCount }) {
+function Shrines({ shrines, loading, totalCount, error }) {
   return (
     <section className="shrines">
       <div className="shrines__hero">
@@ -27,10 +27,12 @@ function Shrines({ shrines, loading, totalCount }) {
             <div className="shrines__spinner" />
             <p>Loading shrines…</p>
           </div>
-        ) : shrines.length === 0 ? (
+        ) : error ? (
           <p className="shrines__empty">
-            No shrines found. Make sure the API server is running.
+            Unable to load shrines right now. Please try again later.
           </p>
+        ) : shrines.length === 0 ? (
+          <p className="shrines__empty">No shrines found.</p>
         ) : (
           <ul className="shrines__list">
             {shrines.map((shrine) => (

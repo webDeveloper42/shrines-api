@@ -18,17 +18,16 @@ function App() {
   const [shrines, setShrines] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/shrines?limit=100`)
+    fetch(`${API_BASE}/shrines?limit=100`)
       .then((r) => r.json())
       .then((data) => {
         setShrines(data.data || []);
         setTotalCount(data.pagination?.total || 0);
       })
-      .catch(() => {
-        // fallback: keep empty array, counter shows 0
-      })
+      .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
 
@@ -40,7 +39,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route
           path="/shrines"
-          element={<Shrines shrines={shrines} loading={loading} totalCount={totalCount} />}
+          element={<Shrines shrines={shrines} loading={loading} totalCount={totalCount} error={error} />}
         />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/docs" element={<ApiDocs />} />
