@@ -36,8 +36,12 @@ app.use("/api/payment/webhook", express.raw({ type: "application/json" }));
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: false, limit: "16kb" }));
 
-// ── NoSQL injection prevention ───────────────────────────────
-app.use(mongoSanitize());
+// ── NoSQL injection prevention (Express 5: req.query is read-only) ──
+app.use((req, _res, next) => {
+  if (req.body) req.body = mongoSanitize.sanitize(req.body);
+  if (req.params) req.params = mongoSanitize.sanitize(req.params);
+  next();
+});
 
 // ── Routes ──────────────────────────────────────────────────
 app.use("/api/shrines", apiLimiter, shrineRoutes);
