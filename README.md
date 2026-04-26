@@ -109,56 +109,6 @@ Self-hosting is always free with no request limits. See [server.dev/pricing](htt
 
 ---
 
-## Self-hosting
-
-Run the full stack locally in under 5 minutes.
-
-### Prerequisites
-
-- Node.js ≥ 18
-- MongoDB (local or [Atlas free tier](https://mongodb.com/atlas))
-- Stripe account — **optional**, only needed to test the upgrade flow
-
-### Setup
-
-```bash
-git clone https://github.com/webDeveloper42/shrines-api.git
-cd shrines-api
-```
-
-**Backend:**
-
-```bash
-cd server
-cp .env.example .env      # MONGODB_URI is the only required field
-npm install
-node seed.js              # loads all 312 shrines into MongoDB
-npm start                 # API runs on :3000
-```
-
-**Frontend** (separate terminal):
-
-```bash
-cd client
-cp .env.example .env      # set VITE_API_BASE=http://localhost:3000
-npm install
-npm run dev               # UI runs on :5173
-```
-
-**Stripe is fully optional locally.** The API runs without any Stripe keys — registration, browsing, and authentication all work. Payment routes return a clear "not configured" message instead of an error. To test the full upgrade flow locally:
-
-1. Add your [Stripe test keys](https://dashboard.stripe.com/test/apikeys) to `server/.env`
-2. Install the [Stripe CLI](https://stripe.com/docs/stripe-cli) and run `npm run stripe:listen` in a third terminal — it prints a webhook secret to paste into `.env`
-3. Create two test Products in the Stripe dashboard ($9/mo Developer, $29/mo Pro) and add their Price IDs to `.env`
-
-The `.env.example` file has step-by-step instructions for each of these.
-
-### Deploy to Render
-
-The repo includes a [`render.yaml`](render.yaml) blueprint. Connect this repo to Render, create a new Blueprint deployment, then set the environment variables listed in each service's section — the file describes exactly what each variable is and where to get it.
-
----
-
 ## Contributing
 
 The most impactful contribution is adding shrine data. Japan has roughly 80,000 registered shrines — 312 is a start.
@@ -239,6 +189,6 @@ If you know a shrine that's missing, [add it](CONTRIBUTING.md#adding-shrines).
 
 ## License
 
-MIT © 2026 [webDeveloper42](https://github.com/webDeveloper42)
+MIT © 2026
 
 The shrine data in `shrines.json` is compiled from publicly available sources including Wikipedia and official shrine websites. Individual shrine records are factual and not subject to copyright.
