@@ -20,7 +20,7 @@ function validate() {
   if (missing.length) {
     console.error(
       `[startup] Missing required environment variables:\n  ${missing.join("\n  ")}\n` +
-        `Copy server/.env.example to .env and fill in every value.`,
+        `Create a .env file in the server directory and fill in every value.`,
     );
     process.exit(1);
   }

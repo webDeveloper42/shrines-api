@@ -130,7 +130,6 @@ cd shrines-api
 
 ```bash
 cd server
-cp .env.example .env      # MONGODB_URI is the only required field
 npm install
 node seed.js              # loads all 312 shrines into MongoDB
 npm start                 # API runs on :3000
@@ -140,7 +139,6 @@ npm start                 # API runs on :3000
 
 ```bash
 cd client
-cp .env.example .env      # set VITE_API_BASE=http://localhost:3000
 npm install
 npm run dev               # UI runs on :5173
 ```
@@ -151,7 +149,6 @@ npm run dev               # UI runs on :5173
 2. Install the [Stripe CLI](https://stripe.com/docs/stripe-cli) and run `npm run stripe:listen` in a third terminal — it prints a webhook secret to paste into `.env`
 3. Create two test Products in the Stripe dashboard ($9/mo Developer, $29/mo Pro) and add their Price IDs to `.env`
 
-The `.env.example` file has step-by-step instructions for each of these.
 
 ### Deploy to Render
 

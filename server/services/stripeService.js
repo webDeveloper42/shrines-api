@@ -9,7 +9,7 @@ class StripeService {
   static getClient() {
     if (!env.STRIPE_SECRET_KEY) {
       const err = new Error(
-        "STRIPE_SECRET_KEY is not set. Add it to .env — see .env.example for instructions."
+        "STRIPE_SECRET_KEY is not set. Add it to your .env file."
       );
       err.statusCode = 503;
       err.code = "STRIPE_NOT_CONFIGURED";

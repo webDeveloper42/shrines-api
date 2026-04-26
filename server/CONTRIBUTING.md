@@ -61,14 +61,12 @@ cd shrines-api
 
 # Backend
 cd server
-cp .env.example .env      # fill in all values
 npm install
 node seed.js              # load the shrine dataset
 npm start                 # API on :3000
 
 # Frontend (separate terminal)
 cd ../client
-cp .env.example .env      # VITE_API_BASE=http://localhost:3000
 npm install
 npm run dev               # UI on :5173
 ```

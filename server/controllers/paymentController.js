@@ -6,7 +6,7 @@ const STRIPE_NOT_CONFIGURED = {
   error: "Payment processing is not enabled on this instance.",
   setup:
     "Add STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_DEVELOPER_PRICE_ID, and " +
-    "STRIPE_PRO_PRICE_ID to your .env file. See .env.example for step-by-step instructions.",
+    "STRIPE_PRO_PRICE_ID to your .env file.",
 };
 
 const createUpgradeSession = async (req, res, next) => {
